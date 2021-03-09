@@ -137,7 +137,8 @@ void rainbowCycle()//uint8_t wait)
   int i, j;
   
   for (j=0; j < 256; j++) 
-  {     // A cycle of all 25 colors in the wheel
+  {     
+    // A cycle of all 256 colors in the wheel
 
     //Read delay and brightness levels from analog pins
     valueDelay = maxdelay*(1+analogRead(input1))/(1+analog_resolution);
@@ -146,11 +147,11 @@ void rainbowCycle()//uint8_t wait)
     
     for (i=0; i < strip.numPixels(); i++) 
     {
-      // tricky math! we use each pixel as a fraction of the full 96-color wheel
+      // tricky math! we use each pixel as a fraction of the full 256-color wheel
       // (thats the i / strip.numPixels() part)
       // Then add in j which makes the colors go around per pixel
-      // the % 96 is to make the wheel cycle around
-      strip.setPixelColor(i, Wheel( ((i * 256 / strip.numPixels()) + j) % 256) );
+      // the %256 is to make the wheel cycle around
+      strip.setPixelColor(i, Wheel( ( (i*256/strip.numPixels()) + j) % 256) );
     }  
     strip.show();   // write all the pixels out
     delay(valueDelay);
